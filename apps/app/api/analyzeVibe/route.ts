@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 - **account age (days):** ${userData.account_age_days}
 - **tweets per day:** ${userData.tweets_per_day}
 
-
+give them short and simple life advice.
 `;
 
     const result = await model.generateContent(prompt);

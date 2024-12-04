@@ -14,6 +14,11 @@ export default function Home() {
   const [error, setError] = useState('')
 
   const checkVibe = async () => {
+    if (!username.trim()) {
+      setError('Please enter a username.')
+      return
+    }
+
     setLoading(true)
     setVibe('')
     setError('')
@@ -30,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
-      <div className="w-full mtpb-9 max-w-md space-y-4 text-center">
+      <div className="w-full mb-[7rem] max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold">
           Advice Giver
         </h1>
@@ -59,7 +64,7 @@ export default function Home() {
           </div>
         )}
         {error && (
-          <Alert>
+          <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
@@ -70,17 +75,16 @@ export default function Home() {
         )}
       </div>
       <footer className="fixed bottom-4 text-muted-foreground text-sm">
-        Made for fun by{' '}
+         coded by a cutie named{' '}
         <a
-          href="https://twitter.com/munadil_sd"
+          href="https://twitter.com/weebthedev"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-foreground"
         >
-          @munadil_sd
+          @weebthedev
         </a>
       </footer>
     </div>
   )
 }
-
