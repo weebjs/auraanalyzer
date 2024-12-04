@@ -6,12 +6,20 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertCircle } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 export default function Home() {
   const [username, setUsername] = useState('')
   const [vibe, setVibe] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const checkVibe = async () => {
     if (!username.trim()) {
@@ -26,6 +34,7 @@ export default function Home() {
       const userData = await axios.get(`/api/fetchUserData?username=${username}`)
       const analysis = await axios.post('/api/analyzeVibe', { userData: userData.data })
       setVibe(analysis.data.analysis)
+      setIsDialogOpen(true) // Open the dialog
     } catch (error) {
       console.error('Error:', error)
       setError('Error checking vibe. Please try again.')
@@ -37,10 +46,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
       <div className="w-full mb-[7rem] max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold">
-          Advice Giver
+          DumbassAnalyzer
         </h1>
         <p className="text-muted-foreground text-sm">
-          Analyze your level of brain rot content on X
+          Analyze your level of dumbness on X
         </p>
         <div className="flex gap-2">
           <Input
@@ -69,9 +78,19 @@ export default function Home() {
           </Alert>
         )}
         {vibe && (
-          <div className="text-foreground mt-4 p-4 border border-border rounded-md">
-            {vibe}
-          </div>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Dumbass Analysis for @{username}</DialogTitle>
+                <DialogDescription>
+                  Here's info on your aura on X:
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-4">
+                {vibe}
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
       </div>
       <footer className="fixed bottom-4 text-muted-foreground text-sm">
