@@ -1,12 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { NextRequest, NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-export default async function handler(req, res) {
-  const { userData } = req.body;
+export async function POST(request: NextRequest) {
+  const { userData } = await request.json();
 
   if (!userData) {
-    return res.status(400).json({ error: 'User data is required' });
+    return NextResponse.json({ error: 'User data is required' }, { status: 400 });
   }
 
   try {
@@ -26,16 +27,16 @@ export default async function handler(req, res) {
 - **account age (days):** ${userData.account_age_days}
 - **tweets per day:** ${userData.tweets_per_day}
 
-based on this user, give them life or self advice about this user.
+
 `;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
 
-    res.status(200).json({ analysis: text });
+    return NextResponse.json({ analysis: text });
   } catch (error) {
     console.error('Error analyzing vibe:', error);
-    res.status(500).json({ error: 'Error analyzing vibe' });
+    return NextResponse.json({ error: 'Error analyzing vibe' }, { status: 500 });
   }
 }
