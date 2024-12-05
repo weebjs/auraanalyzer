@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { NextRequest, NextResponse } from 'next/server';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -30,7 +30,41 @@ export async function POST(request: NextRequest) {
 Now, talk about how big of the user's aura is (whatever that means). Keep it casual, friendly, funny, short, relatable and no need to think too much about the stats, or numbers. just make sure it fun! do NOT assume anything about the user, make sure it's related to their activites and maybe roast them a bit, keep it short! respond in lower case. Also no need to mention the account stats! Make sure it's clear how much aura the user has (show the percentage)... if there aura is low, then say its low! Keep it short but not too short. Instead of "they" respond with "you" also do it based on there posts
 `;
 
-    const result = await model.generateContent(prompt);
+const generationConfig = {
+  temperature: 0,
+  topK: 1,
+  topP: 1,
+  maxOutputTokens: 2048,
+};
+
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+];
+
+const chat = model.startChat({  
+  generationConfig,
+  safetySettings,
+  history: [],
+});
+
+
+
+    const result = await chat.sendMessage(prompt);
     const response = await result.response;
     const text = response.text();
 

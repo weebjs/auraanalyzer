@@ -81,7 +81,7 @@ export default function Home() {
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Dumbass Analysis for @{username}</DialogTitle>
+                <DialogTitle>Aura Analysis for @{username}</DialogTitle>
                 <DialogDescription>
                   Here's info on your aura on X:
                 </DialogDescription>
