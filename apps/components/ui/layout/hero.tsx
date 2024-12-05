@@ -5,7 +5,6 @@ import axios from 'axios'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -83,7 +82,7 @@ export default function Home() {
               <DialogHeader>
                 <DialogTitle>Aura Analysis for @{username}</DialogTitle>
                 <DialogDescription>
-                  Here's info on your aura on X:
+                  Here&apos;s info on your aura on X:
                 </DialogDescription>
               </DialogHeader>
               <div className="mt-4">
