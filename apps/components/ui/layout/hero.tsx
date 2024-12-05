@@ -7,11 +7,12 @@ import { Input } from "@/components/ui/input"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
-import { Toaster, toast } from 'sonner'
+import { useToast } from "@/hooks/use-toast"
+import { Toaster } from "@/components/ui/toaster"
 
 export default function Home() {
   const [username, setUsername] = useState('')
@@ -19,9 +20,15 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
+  const { toast } = useToast()
+
   const checkVibe = async () => {
     if (!username.trim()) {
-      toast.error('Please enter a username.')
+      toast({
+        variant: "destructive",
+        title: "Username Required",
+        description: "Please enter a username to analyze.",
+      })
       return
     }
 
@@ -34,14 +41,18 @@ export default function Home() {
       setIsDialogOpen(true) // Open the dialog
     } catch (error) {
       console.error('Error:', error)
-      toast.error('Error checking vibe. Please try again.')
+      toast({
+        variant: "destructive",
+        title: "Analysis Failed",
+        description: "Error checking vibe. Please try again.",
+      })
     }
     setLoading(false)
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
-      <Toaster richColors />
+      <Toaster />
       <div className="w-full mb-[7rem] max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold">
           AuraAnalyzer
@@ -100,3 +111,4 @@ export default function Home() {
     </div>
   )
 }
+
