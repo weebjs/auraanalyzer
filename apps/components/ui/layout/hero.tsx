@@ -4,7 +4,6 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import {
   Dialog,
   DialogContent,
@@ -12,23 +11,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Toaster, toast } from 'sonner'
 
 export default function Home() {
   const [username, setUsername] = useState('')
   const [vibe, setVibe] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const checkVibe = async () => {
     if (!username.trim()) {
-      setError('Please enter a username.')
+      toast.error('Please enter a username.')
       return
     }
 
     setLoading(true)
     setVibe('')
-    setError('')
     try {
       const userData = await axios.get(`/api/fetchUserData?username=${username}`)
       const analysis = await axios.post('/api/analyzeVibe', { userData: userData.data })
@@ -36,13 +34,14 @@ export default function Home() {
       setIsDialogOpen(true) // Open the dialog
     } catch (error) {
       console.error('Error:', error)
-      setError('Error checking vibe. Please try again.')
+      toast.error('Error checking vibe. Please try again.')
     }
     setLoading(false)
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
+      <Toaster richColors />
       <div className="w-full mb-[7rem] max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold">
           AuraAnalyzer
@@ -70,11 +69,6 @@ export default function Home() {
           <div className="flex justify-center">
             <div className="w-6 h-6 border-t-2 border-primary rounded-full animate-spin"></div>
           </div>
-        )}
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
         )}
         {vibe && (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

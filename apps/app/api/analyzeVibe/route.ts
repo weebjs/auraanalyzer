@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { NextRequest, NextResponse } from 'next/server';
 
-const apiKey = "AIzaSyDomrCXeYXM39acyBm4Jwz9FlezzmWdbEs";
+const apiKey = "AIzaSyAMdlVYwMKXm92XVX1YDLu4L6gHC1KuZTM";
 if (!apiKey) {
   throw new Error('GEMINI_API_KEY is not defined in the environment variables');
 }
