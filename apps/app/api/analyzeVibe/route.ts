@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 - **account age (days):** ${userData.account_age_days}
 - **tweets per day:** ${userData.tweets_per_day}
 
-Now, talk about how big of a dumbass the user is (whatever that means). Keep it casual, friendly, funny, short, relatable and no need to think too much about the stats, or numbers. just make sure it fun! do NOT assume anything about the user, make sure it's related to their activites and maybe roast them a bit, keep it short! respond in lower case. Also no need to mention the account stats! Make sure it's clear how much of a dumbass the user is... if there really dumb, then say there really dumb! Keep it short but not too short. Instead of "they" respond with "you" also do it based on there posts
+Now, talk about how big of the user's aura is (whatever that means). Keep it casual, friendly, funny, short, relatable and no need to think too much about the stats, or numbers. just make sure it fun! do NOT assume anything about the user, make sure it's related to their activites and maybe roast them a bit, keep it short! respond in lower case. Also no need to mention the account stats! Make sure it's clear how much aura the user has (show the percentage)... if there aura is low, then say its low! Keep it short but not too short. Instead of "they" respond with "you" also do it based on there posts
 `;
 
     const result = await model.generateContent(prompt);

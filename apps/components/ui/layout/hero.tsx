@@ -46,10 +46,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
       <div className="w-full mb-[7rem] max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold">
-          DumbassAnalyzer
+          AuraAnalyzer
         </h1>
         <p className="text-muted-foreground text-sm">
-          Analyze your level of dumbness on X
+          Analyze your level of aura on X
         </p>
         <div className="flex gap-2">
           <Input
