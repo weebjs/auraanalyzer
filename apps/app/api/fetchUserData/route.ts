@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Username is required' }, { status: 404 });
     }
 
-    const bearerToken = process.env.TWITTER_BEARER_TOKEN;
+    const bearerToken = "AAAAAAAAAAAAAAAAAAAAALDYtAEAAAAA7EwsW3KAbXl7hHZPoo4izy2BU%2BE%3DOXEGviURs4Zut4Wfd8o7doyPgRfy9Pdb7q3RuU27erayly7cCY";
 
     if (!bearerToken) {
         return NextResponse.json({ error: 'Twitter API credentials are not configured' }, { status: 500 });
